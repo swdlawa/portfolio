@@ -123,23 +123,61 @@ foreach ($size in @(64, 180, 192, 512)) {
   $g.Dispose(); $bmp.Dispose()
 }
 
-# --- 1b. favicon.ico (16 / 32 / 48, PNG-compressed entries) ---------------
-function Get-IconPng {
+# --- 1b. favicon.ico (16 / 32 / 48, classic 32-bit BMP entries) ----------
+# PNG-compressed ICO entries are fine in browsers but some Windows APIs refuse
+# to read them, so these use the older (universally readable) DIB format.
+function Get-IconDib {
   param([int]$size)
+
   $pair = New-Canvas $size $size
   $bmp = $pair[0]; $g = $pair[1]
   $g.Clear([System.Drawing.Color]::Transparent)
   Draw-Mark $g ($size / 2) ($size / 2) ($size * 0.92) $true
+
+  $rect = New-Object System.Drawing.Rectangle(0, 0, $size, $size)
+  $locked = $bmp.LockBits($rect,
+    [System.Drawing.Imaging.ImageLockMode]::ReadOnly,
+    [System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
+  $stride = [Math]::Abs($locked.Stride)
+  $pixels = New-Object byte[] ($stride * $size)
+  [System.Runtime.InteropServices.Marshal]::Copy($locked.Scan0, $pixels, 0, $pixels.Length)
+  $bmp.UnlockBits($locked)
+  $g.Dispose(); $bmp.Dispose()
+
   $ms = New-Object System.IO.MemoryStream
-  $bmp.Save($ms, [System.Drawing.Imaging.ImageFormat]::Png)
+  $bw = New-Object System.IO.BinaryWriter($ms)
+
+  # BITMAPINFOHEADER — height is doubled to account for the AND mask.
+  $bw.Write([UInt32]40)
+  $bw.Write([Int32]$size)
+  $bw.Write([Int32]($size * 2))
+  $bw.Write([UInt16]1)
+  $bw.Write([UInt16]32)
+  $bw.Write([UInt32]0)
+  $bw.Write([UInt32]($size * $size * 4))
+  $bw.Write([Int32]0)
+  $bw.Write([Int32]0)
+  $bw.Write([UInt32]0)
+  $bw.Write([UInt32]0)
+
+  # XOR pixels, bottom-up. LockBits gives BGRA, which is what a DIB wants.
+  for ($y = $size - 1; $y -ge 0; $y--) {
+    $bw.Write($pixels, ($y * $stride), ($size * 4))
+  }
+
+  # AND mask, 1 bit per pixel, rows padded to 32 bits. All zero = keep alpha.
+  $maskStride = [int]([Math]::Ceiling($size / 32.0) * 4)
+  $bw.Write((New-Object byte[] ($maskStride * $size)))
+
+  $bw.Flush()
   $bytes = $ms.ToArray()
-  $ms.Dispose(); $g.Dispose(); $bmp.Dispose()
+  $bw.Dispose(); $ms.Dispose()
   return ,$bytes
 }
 
 $icoSizes = @(16, 32, 48)
-$icoPngs = @()
-foreach ($s in $icoSizes) { $icoPngs += ,(Get-IconPng $s) }
+$icoDibs = @()
+foreach ($s in $icoSizes) { $icoDibs += ,(Get-IconDib $s) }
 
 $icoStream = New-Object System.IO.MemoryStream
 $icoWriter = New-Object System.IO.BinaryWriter($icoStream)
@@ -150,7 +188,7 @@ $icoWriter.Write([UInt16]$icoSizes.Count)    # image count
 $icoOffset = 6 + 16 * $icoSizes.Count
 for ($i = 0; $i -lt $icoSizes.Count; $i++) {
   $s = $icoSizes[$i]
-  $data = $icoPngs[$i]
+  $data = $icoDibs[$i]
   $dim = if ($s -ge 256) { 0 } else { $s }
   $icoWriter.Write([Byte]$dim)               # width
   $icoWriter.Write([Byte]$dim)               # height
@@ -162,7 +200,7 @@ for ($i = 0; $i -lt $icoSizes.Count; $i++) {
   $icoWriter.Write([UInt32]$icoOffset)       # offset
   $icoOffset += $data.Length
 }
-foreach ($data in $icoPngs) { $icoWriter.Write($data) }
+foreach ($data in $icoDibs) { $icoWriter.Write($data) }
 $icoWriter.Flush()
 [System.IO.File]::WriteAllBytes((Join-Path (Split-Path $PSScriptRoot -Parent) "favicon.ico"), $icoStream.ToArray())
 $icoWriter.Dispose(); $icoStream.Dispose()
