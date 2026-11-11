@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" role="img" aria-labelledby="t">
-  <title id="t">插画：一张书桌的俯视图，上面有笔记本电脑、笔记本、笔和一杯茶</title>
+  <title id="t">Illustration: a top-down view of a desk with a laptop, a notebook, a pen and a mug of tea</title>
   <rect width="900" height="620" fill="#efe7d8"/>
 
   <!-- wood grain -->
@@ -48,7 +48,7 @@
       <path d="M680 196h112M680 222h112M680 248h112M680 274h112M680 300h112M680 326h72"/>
     </g>
     <g fill="#8a99a8" font-family="Consolas, monospace" font-size="10">
-      <text x="680" y="186">— TODO / 本周 —</text>
+      <text x="680" y="186">-- TODO / THIS WEEK --</text>
     </g>
   </g>
 

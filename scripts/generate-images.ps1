@@ -1,7 +1,7 @@
-﻿# ==========================================================================
-# generate-images.ps1 — rebuilds the identity images for this portfolio.
+# ==========================================================================
+# generate-images.ps1 ??? rebuilds the identity images for this portfolio.
 #
-#   pwsh -File scripts/generate-images.ps1
+#   powershell -ExecutionPolicy Bypass -File scripts/generate-images.ps1
 #
 # Produces (all in assets/):
 #   og-image.png        1200 x 630  social sharing card
@@ -9,15 +9,15 @@
 #   apple-touch-icon.png 180 x 180  iOS home screen
 #   icon-192.png / icon-512.png     web app manifest (maskable-safe)
 #
-# Requires Windows PowerShell / pwsh with System.Drawing. No other tools.
+# Requires Windows PowerShell with System.Drawing. No other tools.
 # Edit the palette or the name below and re-run to rebrand.
 # ==========================================================================
 
 param(
-  [string]$Name    = "陈亦航",
-  [string]$Latin   = "YIHANG CHEN",
-  [string]$Tagline = "把模型接进真实的生活里。",
-  [string]$Subline = "AI 应用开发 · 计算机专业大二",
+  [string]$Name    = "Ningyuan Zhou",
+  [string]$Role    = "AI APPLICATION DEVELOPMENT  /  CS SOPHOMORE",
+  [string]$Tagline = "Putting models to work in real life.",
+  [string]$Subline = "Local agents  /  Chat bots  /  Full-stack",
   [string]$SiteUrl = "swdlawa.github.io/portfolio"
 )
 
@@ -56,7 +56,7 @@ function New-Canvas {
   return @($bmp, $g)
 }
 
-# The "Y" mark: a rounded square with a cream Y and one accent dot.
+# The mark: a rounded square with a cream "N" and one accent dot.
 function Draw-Mark {
   param($g, [float]$cx, [float]$cy, [float]$size, [bool]$withPlate = $true)
 
@@ -75,15 +75,16 @@ function Draw-Mark {
   $py = { param($v) $y + $size * $v }
 
   $pts = @(
-    (New-Object System.Drawing.PointF((& $px 0.27), (& $py 0.28))),
-    (New-Object System.Drawing.PointF((& $px 0.40), (& $py 0.28))),
-    (New-Object System.Drawing.PointF((& $px 0.50), (& $py 0.43))),
-    (New-Object System.Drawing.PointF((& $px 0.60), (& $py 0.28))),
-    (New-Object System.Drawing.PointF((& $px 0.73), (& $py 0.28))),
-    (New-Object System.Drawing.PointF((& $px 0.555), (& $py 0.56))),
-    (New-Object System.Drawing.PointF((& $px 0.555), (& $py 0.75))),
-    (New-Object System.Drawing.PointF((& $px 0.445), (& $py 0.75))),
-    (New-Object System.Drawing.PointF((& $px 0.445), (& $py 0.56)))
+    (New-Object System.Drawing.PointF((& $px 0.26), (& $py 0.75))),
+    (New-Object System.Drawing.PointF((& $px 0.26), (& $py 0.25))),
+    (New-Object System.Drawing.PointF((& $px 0.385), (& $py 0.25))),
+    (New-Object System.Drawing.PointF((& $px 0.615), (& $py 0.605))),
+    (New-Object System.Drawing.PointF((& $px 0.615), (& $py 0.25))),
+    (New-Object System.Drawing.PointF((& $px 0.74), (& $py 0.25))),
+    (New-Object System.Drawing.PointF((& $px 0.74), (& $py 0.75))),
+    (New-Object System.Drawing.PointF((& $px 0.615), (& $py 0.75))),
+    (New-Object System.Drawing.PointF((& $px 0.385), (& $py 0.395))),
+    (New-Object System.Drawing.PointF((& $px 0.385), (& $py 0.75)))
   )
   $glyph = New-Object System.Drawing.Drawing2D.GraphicsPath
   $glyph.AddPolygon($pts)
@@ -91,8 +92,8 @@ function Draw-Mark {
   $g.FillPath($cream, $glyph)
 
   $dotBrush = New-Object System.Drawing.SolidBrush($accent)
-  $r = $size * 0.085
-  $g.FillEllipse($dotBrush, ((& $px 0.735) - $r), ((& $py 0.70) - $r), ($r * 2), ($r * 2))
+  $r = $size * 0.062
+  $g.FillEllipse($dotBrush, ((& $px 0.80) - $r), ((& $py 0.70) - $r), ($r * 2), ($r * 2))
 
   $cream.Dispose(); $dotBrush.Dispose(); $glyph.Dispose()
 }
@@ -133,27 +134,29 @@ $g.DrawRectangle($framePen, 40, 40, 1120, 550)
 
 # Left accent rule
 $ruleBrush = New-Object System.Drawing.SolidBrush($accent)
-$g.FillRectangle($ruleBrush, 96, 116, 10, 250)
+$g.FillRectangle($ruleBrush, 96, 116, 10, 190)
 
 # Upper label
 $labelFont = New-Object System.Drawing.Font("Consolas", 20, [System.Drawing.FontStyle]::Regular)
 $labelBrush = New-Object System.Drawing.SolidBrush($muted)
 Draw-Text $g "PORTFOLIO  /  2026" $labelFont $labelBrush 136 108
 
-# Name + Latin name
-$nameFont  = New-Object System.Drawing.Font("Microsoft YaHei", 76, [System.Drawing.FontStyle]::Bold, [System.Drawing.GraphicsUnit]::Pixel)
-$latinFont = New-Object System.Drawing.Font("Consolas", 24, [System.Drawing.FontStyle]::Regular)
+# Name
+$nameFont  = New-Object System.Drawing.Font("Georgia", 56, [System.Drawing.FontStyle]::Bold)
 $inkBrush  = New-Object System.Drawing.SolidBrush($ink)
 $accentBrush = New-Object System.Drawing.SolidBrush($accent)
-Draw-Text $g $Name $nameFont $inkBrush 132 152
-Draw-Text $g $Latin $latinFont $accentBrush 138 268
+Draw-Text $g $Name $nameFont $inkBrush 130 152
+
+# Role line
+$roleFont = New-Object System.Drawing.Font("Consolas", 17, [System.Drawing.FontStyle]::Regular)
+Draw-Text $g $Role $roleFont $accentBrush 134 244
 
 # Tagline
-$tagFont = New-Object System.Drawing.Font("Microsoft YaHei", 34, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Pixel)
-$subFont = New-Object System.Drawing.Font("Microsoft YaHei", 22, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Pixel)
+$tagFont = New-Object System.Drawing.Font("Segoe UI", 34, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Pixel)
+$subFont = New-Object System.Drawing.Font("Segoe UI", 21, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Pixel)
 $mutedBrush = New-Object System.Drawing.SolidBrush($muted)
-Draw-Text $g $Tagline $tagFont $inkBrush 136 340
-Draw-Text $g $Subline $subFont $mutedBrush 138 400
+Draw-Text $g $Tagline $tagFont $inkBrush 134 322
+Draw-Text $g $Subline $subFont $mutedBrush 136 380
 
 # Bottom: url + small dot
 $urlFont = New-Object System.Drawing.Font("Consolas", 20, [System.Drawing.FontStyle]::Regular)
@@ -169,13 +172,13 @@ $g.ResetTransform()
 # Small caption under the mark
 $capFont = New-Object System.Drawing.Font("Consolas", 16, [System.Drawing.FontStyle]::Regular)
 $capBrush = New-Object System.Drawing.SolidBrush($muted)
-Draw-Text $g "LOCAL AGENT · BOTS · WEB" $capFont $capBrush 790 520
+Draw-Text $g "LOCAL AGENT / BOTS / WEB" $capFont $capBrush 790 520
 
 $bmp.Save((Join-Path $outDir "og-image.png"), [System.Drawing.Imaging.ImageFormat]::Png)
 
 # --- Cleanup ---------------------------------------------------------------
-foreach ($obj in @($framePen, $ruleBrush, $labelFont, $labelBrush, $nameFont, $latinFont,
-                   $inkBrush, $accentBrush, $tagFont, $subFont, $mutedBrush,
+foreach ($obj in @($framePen, $ruleBrush, $labelFont, $labelBrush, $nameFont,
+                   $roleFont, $inkBrush, $accentBrush, $tagFont, $subFont, $mutedBrush,
                    $urlFont, $capFont, $capBrush)) {
   $obj.Dispose()
 }

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="t">
-  <title id="t">示意图：浏览器、API 与数据库三层结构</title>
+  <title id="t">Diagram: a browser, an API layer and a database in three layers</title>
   <rect width="800" height="500" fill="#e7eef3"/>
 
   <!-- browser -->

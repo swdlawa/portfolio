@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="t">
-  <title id="t">示意图：编码 Agent 经协议网关连接 DeepSeek 模型</title>
+  <title id="t">Diagram: a coding agent connected to a DeepSeek model through a protocol gateway</title>
   <defs>
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M32 0H0V32" fill="none" stroke="#242c34" stroke-width="1"/>
