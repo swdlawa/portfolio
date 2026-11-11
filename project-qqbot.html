@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang="zh-CN" class="no-js">
+<html lang="en" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>QQ 智能对话机器人 · 陈亦航</title>
-<meta name="description" content="复盘：用 NoneBot2 + NapCat 接 DeepSeek，做一个有人设、有记忆、能看图、会提醒，而且掉线能自己恢复的 QQ 机器人。">
+<title>QQ chatbot · Ningyuan Zhou</title>
+<meta name="description" content="Case study: a QQ chatbot built with NoneBot2, NapCat and DeepSeek — persona, memory, image understanding, reminders and a daemon that restarts it.">
 <link rel="canonical" href="https://swdlawa.github.io/portfolio/project-qqbot.html">
 
 <meta property="og:type" content="article">
-<meta property="og:site_name" content="陈亦航 · 作品集">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:title" content="QQ 智能对话机器人 · 陈亦航">
-<meta property="og:description" content="NoneBot2 + NapCat + DeepSeek：从 HTTP 适配器换到 WebSocket，再给它加上守护进程。">
+<meta property="og:site_name" content="Ningyuan Zhou · Portfolio">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="QQ chatbot · Ningyuan Zhou">
+<meta property="og:description" content="NoneBot2 + NapCat + DeepSeek: why I moved from HTTP to WebSocket, and how the bot stays online.">
 <meta property="og:url" content="https://swdlawa.github.io/portfolio/project-qqbot.html">
 <meta property="og:image" content="https://swdlawa.github.io/portfolio/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="陈亦航作品集：把模型接进真实的生活里。">
+<meta property="og:image:alt" content="Ningyuan Zhou portfolio: putting models to work in real life.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="QQ 智能对话机器人 · 陈亦航">
-<meta name="twitter:description" content="NoneBot2 + NapCat + DeepSeek：从 HTTP 适配器换到 WebSocket，再给它加上守护进程。">
+<meta name="twitter:title" content="QQ chatbot · Ningyuan Zhou">
+<meta name="twitter:description" content="NoneBot2 + NapCat + DeepSeek: why I moved from HTTP to WebSocket, and how the bot stays online.">
 <meta name="twitter:image" content="https://swdlawa.github.io/portfolio/assets/og-image.png">
 
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -44,24 +44,24 @@
 <script src="js/main.js" defer></script>
 </head>
 <body>
-<a class="skip-link" href="#main">跳到主要内容</a>
+<a class="skip-link" href="#main">Skip to main content</a>
 
 <header class="site-header">
   <div class="wrap header-inner">
     <a class="brand" href="index.html">
       <img class="brand-mark" src="assets/favicon.svg" alt="" width="30" height="30">
-      <span class="brand-text">陈亦航<small>AI 应用开发</small></span>
+      <span class="brand-text">Ningyuan Zhou<small>AI application development</small></span>
     </a>
-    <nav class="site-nav" id="site-nav" aria-label="主导航">
+    <nav class="site-nav" id="site-nav" aria-label="Main navigation">
       <ul>
-        <li><a href="index.html">首页</a></li>
-        <li><a href="work.html" aria-current="page">项目</a></li>
-        <li><a href="about.html">关于</a></li>
-        <li><a href="contact.html">联系</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="work.html" aria-current="page">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
     <div class="header-tools">
-      <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="切换到深色主题">
+      <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Switch to dark theme">
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
           <circle cx="12" cy="12" r="4.2"/>
           <path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/>
@@ -70,7 +70,7 @@
           <path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.2 8.2 0 1 0 10.2 10.2Z"/>
         </svg>
       </button>
-      <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav" aria-label="打开菜单">
+      <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
           <path d="M4 7h16M4 12h16M4 17h16"/>
         </svg>
@@ -83,85 +83,85 @@
 
   <div class="wrap">
     <div class="page-head">
-      <nav aria-label="面包屑">
+      <nav aria-label="Breadcrumb">
         <ol class="breadcrumb">
-          <li><a href="index.html">首页</a></li>
-          <li><a href="work.html">项目</a></li>
-          <li aria-current="page">QQ 智能对话机器人</li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="work.html">Work</a></li>
+          <li aria-current="page">QQ chatbot</li>
         </ol>
       </nav>
-      <h1>一个会自己爬起来的机器人</h1>
-      <p>最初只是想让群里有个能接话的角色。做着做着发现，让模型说话不难，让它连续几周不掉线才难。</p>
+      <h1>A bot that picks itself back up</h1>
+      <p>At first I just wanted a character in the group chat that could hold a conversation. Somewhere along the way I learned that making a model talk is easy; keeping it online for weeks is hard.</p>
 
       <dl class="study-meta">
         <div>
-          <dt>角色</dt>
-          <dd>独立开发</dd>
+          <dt>Role</dt>
+          <dd>Solo developer</dd>
         </div>
         <div>
-          <dt>时间</dt>
+          <dt>Time</dt>
           <dd><time datetime="2026-05">2026.05</time></dd>
         </div>
         <div>
-          <dt>技术栈</dt>
+          <dt>Stack</dt>
           <dd>NoneBot2 · NapCat · DeepSeek API</dd>
         </div>
         <div>
-          <dt>结果</dt>
-          <dd>稳定运行数月</dd>
+          <dt>Outcome</dt>
+          <dd>Months of uptime in a live group</dd>
         </div>
       </dl>
     </div>
 
     <article class="prose">
       <figure>
-        <img src="assets/cover-qqbot.svg" alt="示意图：手机聊天界面里机器人在回复，旁边标注 OneBot 11、守护进程和记忆模块" width="800" height="500">
-        <figcaption>它每天面对的就是这种对话。看起来简单，背后是协议、记忆和进程管理。</figcaption>
+        <img src="assets/cover-qqbot.svg" alt="Diagram: a phone chat window with the bot replying, annotated with OneBot 11, daemon and memory" width="800" height="500">
+        <figcaption>This is what it faces every day. It looks simple; underneath there is protocol, memory and process management.</figcaption>
       </figure>
 
-      <h2>想做成什么样</h2>
-      <p>需求列出来只有四条：有固定人设、能记住上下文、能看懂图片、能定时提醒。技术上就是一条链路：QQ 消息进来，交给模型，再把回复发回去。</p>
-      <p>难点在于这条链路不能只跑一次。群里的消息是随时来的，机器会重启、网络会断、接口会超时。一个只在演示时能用的机器人，没有意义。</p>
+      <h2>What I wanted</h2>
+      <p>Four requirements, on paper: a fixed persona, memory of the conversation, the ability to understand images, and scheduled reminders. Technically that's one chain: a QQ message arrives, the model answers, the reply goes back.</p>
+      <p>The hard part is that the chain can't run once. Messages arrive at any hour; machines reboot, networks drop, APIs time out. A bot that only works during a demo is pointless.</p>
 
-      <h2>技术选型</h2>
+      <h2>Choosing the stack</h2>
       <ul>
-        <li><strong>NoneBot2</strong> 做消息分发和插件管理，Python 生态，改起来快；</li>
-        <li><strong>NapCat</strong> 负责和 QQ 通信，走 OneBot 11 协议；</li>
-        <li><strong>DeepSeek API</strong> 负责生成回复，人设写进 system prompt；</li>
-        <li><strong>WebSocket 长连接</strong> 替代 HTTP，用来接收事件。</li>
+        <li><strong>NoneBot2</strong> for message dispatch and plugins — a Python ecosystem, quick to modify.</li>
+        <li><strong>NapCat</strong> to talk to QQ over the OneBot 11 protocol.</li>
+        <li><strong>DeepSeek API</strong> for replies, with the persona fixed in a system prompt.</li>
+        <li><strong>A WebSocket connection</strong> instead of HTTP, to receive events.</li>
       </ul>
 
-      <h2>那个让我卡了一晚上的问题</h2>
-      <p>按文档配好 HTTP 适配器，启动日志显示一切正常，但机器人对消息完全没有反应。日志里全是“成功”，端口却没有任何连接。</p>
-      <p>查了很久才确认：适配器报告的是配置加载成功，并不代表它真的在监听。换成 WebSocket 长连接之后，事件立刻就能收到。</p>
+      <h2>The bug that cost me a night</h2>
+      <p>I configured the HTTP adapter exactly as documented. The startup log said everything was fine, but the bot never reacted to a message. All "success", zero connections on the port.</p>
+      <p>It took hours to confirm: the adapter was reporting that its config had loaded, not that it was actually listening. Switching to a WebSocket connection made events arrive immediately.</p>
 
-      <p class="pull">“只报成功、不监听端口”——这类问题最耗时间，因为所有日志都在骗你。</p>
+      <p class="pull">"Reports success, listens on nothing" — the worst class of bug, because every log is lying to you.</p>
 
-      <p>这件事之后，我加了两层保险：写了一个守护进程，进程挂了自动拉起；再配开机自启，机器重启也不用管。判断服务是否健康，用一个真实的探活请求，而不是看日志最后一行。</p>
+      <p>After that I added two layers of insurance: a daemon that restarts the process if it dies, and start-on-boot so a reboot doesn't matter. Health is judged by a real probe request, not the last line of a log.</p>
 
-      <h2>记忆是怎么做的</h2>
-      <p>没有上向量数据库，就是按会话保存最近若干轮对话，超出长度就截断。够用，也便宜。人设通过 system prompt 固定，避免它聊着聊着变成另一个人。</p>
-      <p>图片识别是把图片转成模型能接受的输入再提问。这部分准确率一般，所以我不会让它对图片内容做重要判断。</p>
+      <h2>How memory works</h2>
+      <p>No vector database. Each conversation keeps the last few turns, truncated when it gets long. It's enough, and it's cheap. The persona is pinned through the system prompt so it doesn't slowly become someone else.</p>
+      <p>Image understanding converts the image into a model input and asks about it. Accuracy is mediocre, so I never let it make important judgements about an image.</p>
 
-      <h2>边界</h2>
+      <h2>Where it stops</h2>
       <ul>
-        <li>上下文一长就贵，所以只保留最近几轮，不做长期记忆；</li>
-        <li>模型偶尔会胡说，涉及事实的内容我会让它明确说“不确定”；</li>
-        <li>没有做多群隔离的复杂权限，只在熟人小群里用。</li>
+        <li>Long contexts get expensive, so only the last few turns are kept — no long-term memory.</li>
+        <li>The model occasionally makes things up; for factual questions it's instructed to say it isn't sure.</li>
+        <li>There's no complex per-group permission model. It runs in a small group of friends.</li>
       </ul>
 
-      <h2>我学到什么</h2>
-      <p>以前我以为“部署”是最后一步，现在知道它只是开始。真正让一个服务可用的，是超时、重试、守护和日志这些不性感的部分。也是从这个项目开始，我习惯在任何“成功”日志后面加一句：真的成功了吗？</p>
+      <h2>What I learned</h2>
+      <p>I used to think deployment was the last step. Now I know it's the first. What makes a service usable is the unglamorous part: timeouts, retries, supervision, logs. This project is also where I started appending a question to every "success" log line: did it actually succeed?</p>
     </article>
 
-    <nav class="study-nav" aria-label="项目导航">
+    <nav class="study-nav" aria-label="Project navigation">
       <a href="project-dsh.html">
-        <small>上一个</small>
-        ← 大模型智能体本地部署
+        <small>Previous</small>
+        ← Local LLM agent deployment
       </a>
       <a class="next" href="project-web.html">
-        <small>下一个</small>
-        AI 辅助的网站开发 →
+        <small>Next</small>
+        AI-assisted web development →
       </a>
     </nav>
   </div>
@@ -174,36 +174,36 @@
       <div class="footer-brand">
         <a class="brand" href="index.html">
           <img class="brand-mark" src="assets/favicon.svg" alt="" width="30" height="30">
-          <span class="brand-text">陈亦航<small>AI 应用开发</small></span>
+          <span class="brand-text">Ningyuan Zhou<small>AI application development</small></span>
         </a>
-        <p>计算机专业大二。把想法做成能跑的小工具，然后想办法让它一直跑下去。</p>
+        <p>CS sophomore. I build small tools that work, then try to keep them working.</p>
       </div>
       <div class="footer-col">
-        <h2>页面</h2>
+        <h2>Pages</h2>
         <ul>
-          <li><a href="index.html">首页</a></li>
-          <li><a href="work.html">项目</a></li>
-          <li><a href="about.html">关于</a></li>
-          <li><a href="contact.html">联系</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="work.html">Work</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h2>在别处</h2>
+        <h2>Elsewhere</h2>
         <ul>
           <li><a href="https://github.com/swdlawa" rel="me">GitHub</a></li>
-          <li><a href="mailto:chen.yihang@example.com">邮箱</a></li>
-          <li><a href="work.html">全部项目</a></li>
+          <li><a href="mailto:ningyuan.zhou@example.com">Email</a></li>
+          <li><a href="work.html">All projects</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© <span data-year>2026</span> 陈亦航 · 手写 HTML / CSS / JS，托管在 GitHub Pages</p>
-      <p>本站所有插图均为原创 SVG，可自由查看源码。</p>
+      <p>© <span data-year>2026</span> Ningyuan Zhou · Hand-written HTML / CSS / JS, hosted on GitHub Pages</p>
+      <p>All illustrations are original SVG. Source is open.</p>
     </div>
   </div>
 </footer>
 
-<button class="to-top" type="button" data-to-top aria-label="回到顶部">
+<button class="to-top" type="button" data-to-top aria-label="Back to top">
   <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <path d="M12 19V5M5 12l7-7 7 7"/>
   </svg>

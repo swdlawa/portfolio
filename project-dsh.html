@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang="zh-CN" class="no-js">
+<html lang="en" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>大模型智能体本地部署 · 陈亦航</title>
-<meta name="description" content="复盘：如何用一层协议转发网关，把编码 Agent 接到 DeepSeek，并解决端口占用、插件冲突和协议适配问题。">
+<title>Local LLM agent deployment · Ningyuan Zhou</title>
+<meta name="description" content="Case study: connecting a coding agent to DeepSeek through a protocol-forwarding gateway, and fixing port conflicts, plugin clashes and protocol mismatches.">
 <link rel="canonical" href="https://swdlawa.github.io/portfolio/project-dsh.html">
 
 <meta property="og:type" content="article">
-<meta property="og:site_name" content="陈亦航 · 作品集">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:title" content="大模型智能体本地部署 · 陈亦航">
-<meta property="og:description" content="用一层协议转发网关把编码 Agent 接到 DeepSeek：链路怎么搭，坑在哪。">
+<meta property="og:site_name" content="Ningyuan Zhou · Portfolio">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Local LLM agent deployment · Ningyuan Zhou">
+<meta property="og:description" content="A gateway between a coding agent and DeepSeek: how the chain fits together, and where it broke.">
 <meta property="og:url" content="https://swdlawa.github.io/portfolio/project-dsh.html">
 <meta property="og:image" content="https://swdlawa.github.io/portfolio/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="陈亦航作品集：把模型接进真实的生活里。">
+<meta property="og:image:alt" content="Ningyuan Zhou portfolio: putting models to work in real life.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="大模型智能体本地部署 · 陈亦航">
-<meta name="twitter:description" content="用一层协议转发网关把编码 Agent 接到 DeepSeek：链路怎么搭，坑在哪。">
+<meta name="twitter:title" content="Local LLM agent deployment · Ningyuan Zhou">
+<meta name="twitter:description" content="A gateway between a coding agent and DeepSeek: how the chain fits together, and where it broke.">
 <meta name="twitter:image" content="https://swdlawa.github.io/portfolio/assets/og-image.png">
 
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -44,24 +44,24 @@
 <script src="js/main.js" defer></script>
 </head>
 <body>
-<a class="skip-link" href="#main">跳到主要内容</a>
+<a class="skip-link" href="#main">Skip to main content</a>
 
 <header class="site-header">
   <div class="wrap header-inner">
     <a class="brand" href="index.html">
       <img class="brand-mark" src="assets/favicon.svg" alt="" width="30" height="30">
-      <span class="brand-text">陈亦航<small>AI 应用开发</small></span>
+      <span class="brand-text">Ningyuan Zhou<small>AI application development</small></span>
     </a>
-    <nav class="site-nav" id="site-nav" aria-label="主导航">
+    <nav class="site-nav" id="site-nav" aria-label="Main navigation">
       <ul>
-        <li><a href="index.html">首页</a></li>
-        <li><a href="work.html" aria-current="page">项目</a></li>
-        <li><a href="about.html">关于</a></li>
-        <li><a href="contact.html">联系</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="work.html" aria-current="page">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
     <div class="header-tools">
-      <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="切换到深色主题">
+      <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Switch to dark theme">
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
           <circle cx="12" cy="12" r="4.2"/>
           <path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/>
@@ -70,7 +70,7 @@
           <path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.2 8.2 0 1 0 10.2 10.2Z"/>
         </svg>
       </button>
-      <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav" aria-label="打开菜单">
+      <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
           <path d="M4 7h16M4 12h16M4 17h16"/>
         </svg>
@@ -83,88 +83,88 @@
 
   <div class="wrap">
     <div class="page-head">
-      <nav aria-label="面包屑">
+      <nav aria-label="Breadcrumb">
         <ol class="breadcrumb">
-          <li><a href="index.html">首页</a></li>
-          <li><a href="work.html">项目</a></li>
-          <li aria-current="page">大模型智能体本地部署</li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="work.html">Work</a></li>
+          <li aria-current="page">Local LLM agent deployment</li>
         </ol>
       </nav>
-      <h1>让 Agent 在自己电脑上干活</h1>
-      <p>目标很简单：我希望编码 Agent 能用上 DeepSeek，而不是被绑死在某个云端服务上。真正麻烦的地方，是两边说的不是同一种“话”。</p>
+      <h1>Letting an agent work on my own machine</h1>
+      <p>The goal was simple: I wanted my coding agent to use DeepSeek instead of being tied to a cloud service. The hard part turned out to be that the two sides don't speak the same language.</p>
 
       <dl class="study-meta">
         <div>
-          <dt>角色</dt>
-          <dd>独立完成</dd>
+          <dt>Role</dt>
+          <dd>Independent</dd>
         </div>
         <div>
-          <dt>时间</dt>
+          <dt>Time</dt>
           <dd><time datetime="2026-06">2026.06</time></dd>
         </div>
         <div>
-          <dt>技术栈</dt>
-          <dd>DSH · 协议网关 · DeepSeek API</dd>
+          <dt>Stack</dt>
+          <dd>DSH · protocol gateway · DeepSeek API</dd>
         </div>
         <div>
-          <dt>结果</dt>
-          <dd>跑通多步任务编排</dd>
+          <dt>Outcome</dt>
+          <dd>Multi-step task orchestration working</dd>
         </div>
       </dl>
     </div>
 
     <article class="prose">
       <figure>
-        <img src="assets/cover-dsh.svg" alt="架构示意图：左侧是本地编码 Agent，中间是标着 GATEWAY 的协议转发组件，右侧是 DeepSeek 模型，箭头表示请求与响应" width="800" height="500">
-        <figcaption>整体链路。网关夹在中间，负责把 Agent 的请求翻译成模型能接受的形式，再把结果送回去。</figcaption>
+        <img src="assets/cover-dsh.svg" alt="Architecture diagram: a local coding agent on the left, a protocol gateway in the middle, and the DeepSeek model on the right, with arrows for requests and responses" width="800" height="500">
+        <figcaption>The full loop. The gateway sits in the middle, translating the agent's requests into something the model accepts and handing the result back.</figcaption>
       </figure>
 
-      <h2>为什么要在本地跑</h2>
-      <p>一开始我用的是现成的云端编码工具。能跑，但有两个问题一直硌着我：一是上下文和代码都要发出去，心里没底；二是模型和工具被绑在一起，想换一个模型就得换一整套工作流。</p>
-      <p>本地部署的吸引力在于控制权：模型可以换、请求可以看、日志在自己手里。代价是所有粘合工作都得自己做。</p>
+      <h2>Why run it locally</h2>
+      <p>At first I used an off-the-shelf cloud coding tool. It worked, but two things kept bothering me: every file I touched went out the door, and the model was welded to the tool — switching models meant replacing the whole workflow.</p>
+      <p>Local deployment buys control: swap the model, inspect the request, keep the logs. The price is that all the glue is yours to write.</p>
 
-      <h2>我做了什么</h2>
-      <p>核心是三段：<strong>框架、网关、模型</strong>。</p>
+      <h2>What I built</h2>
+      <p>Three pieces: <strong>framework, gateway, model</strong>.</p>
       <ul>
-        <li>在本机部署 DSH（DeepSeek Harness）框架，让编码 Agent 有一个能运行的环境；</li>
-        <li>写一层协议转发网关，把 Agent 发出的请求转成 DeepSeek API 认的格式，再把响应转回来；</li>
-        <li>把任务调度、工具调用、模型推理串成一条链路，用一个小任务验证它确实能走通。</li>
+        <li>Deployed DSH (DeepSeek Harness) locally, giving the coding agent an environment to run in.</li>
+        <li>Wrote a protocol-forwarding gateway that converts the agent's requests into the shape the DeepSeek API expects, and converts the answers back.</li>
+        <li>Linked task scheduling, tool calls and inference into one chain, then proved it with a small task.</li>
       </ul>
 
-      <p>最开始的版本只支持一问一答。后来加了工具调用，问题才真正暴露出来：工具的参数是结构化的，模型返回的也是结构化的，中间任何一层丢掉字段，Agent 就会“看起来在思考，实际上什么都没做”。</p>
+      <p>The first version only handled one question and one answer. Adding tool calls is when the real problems showed up: tool arguments are structured, the model's output is structured, and if any layer drops a field, the agent looks like it's thinking while doing nothing at all.</p>
 
-      <h2>卡住我的三个坑</h2>
-      <h3>一、端口被占用</h3>
-      <p>服务起不来，第一反应是代码错了。实际上是上一次调试的进程没退干净，端口还占着，新进程静默失败。后来我养成了习惯：启动前先查端口，报错先看进程列表。</p>
+      <h2>Three things that blocked me</h2>
+      <h3>1. The port was already in use</h3>
+      <p>The service wouldn't start, and my first instinct was that the code was wrong. In fact an earlier debugging process hadn't exited and still held the port, so the new process failed silently. Now I check the port before starting, and check the process list before believing an error.</p>
 
-      <h3>二、插件互相打架</h3>
-      <p>装了两个功能重叠的插件，单独跑都正常，一起跑就出问题。这类问题很难靠读代码发现，只能一个个禁用、二分定位。</p>
+      <h3>2. Two plugins fighting each other</h3>
+      <p>I installed two plugins with overlapping features. Each worked alone; together they broke. That kind of bug is almost invisible in code review — the only way through is disabling them one at a time and bisecting.</p>
 
-      <h3>三、“服务启动了，但端口没监听”</h3>
-      <p>这是最典型的一个。日志里写着启动成功，访问却连不上。查下来是协议适配层没真正绑定端口——日志报的是进程活着，不是服务可用。从那以后我判断服务是否就绪，只看能不能实际发一个请求过去，不再信日志里的“success”。</p>
+      <h3>3. "The service started, but nothing is listening"</h3>
+      <p>The classic. The log said startup succeeded, but connections were refused. The protocol adapter had never actually bound the port — the log had reported that the process was alive, not that the service was available. Since then I judge readiness by sending a real request, never by the word "success" in a log.</p>
 
-      <p class="pull">“启动成功”和“可以使用”是两件事。前者是进程状态，后者要发一个请求才算数。</p>
+      <p class="pull">"Started successfully" and "ready to use" are two different claims. The first is a process state; the second needs a request to come back.</p>
 
-      <h2>现在能做什么，不能做什么</h2>
-      <p>能完成简单的多步任务编排：给定一个目标，Agent 能拆成几步，调用工具，拿到结果再继续。不能做的是长时间、开放式的任务——上下文一长就容易跑偏，失败之后也不会自己回滚。</p>
-      <p>这也是我下一步想补的：给任务加检查点，让失败可以从中间重来，而不是从头再跑一遍。</p>
+      <h2>What it can and cannot do</h2>
+      <p>It can run simple multi-step orchestration: given a goal, the agent splits it into steps, calls tools, reads the results and continues. What it can't do is long, open-ended work — once the context grows it drifts, and a failure doesn't roll back.</p>
+      <p>That's next: checkpoints, so a failed task can resume from the middle instead of starting over.</p>
 
-      <h2>我学到什么</h2>
+      <h2>What I learned</h2>
       <ul>
-        <li><strong>分层排查</strong>：先确认进程，再确认端口，再确认协议，最后才看业务逻辑。顺序错了会浪费很多时间。</li>
-        <li><strong>日志要自己写</strong>：默认日志只告诉你“失败了”，不会告诉你“哪一层失败了”。关键节点得手动打点。</li>
-        <li><strong>最小复现</strong>：把问题缩到一个请求、一个插件、一个参数，比盯着整个系统猜要快得多。</li>
+        <li><strong>Debug in layers.</strong> Process, then port, then protocol, then business logic. Wrong order wastes hours.</li>
+        <li><strong>Write your own logs.</strong> The default log tells you it failed, not which layer failed. Instrument the boundaries.</li>
+        <li><strong>Minimise the reproduction.</strong> One request, one plugin, one argument beats staring at the whole system and guessing.</li>
       </ul>
     </article>
 
-    <nav class="study-nav" aria-label="项目导航">
+    <nav class="study-nav" aria-label="Project navigation">
       <a href="work.html">
-        <small>返回</small>
-        全部项目
+        <small>Back</small>
+        All work
       </a>
       <a class="next" href="project-qqbot.html">
-        <small>下一个</small>
-        QQ 智能对话机器人 →
+        <small>Next</small>
+        QQ chatbot →
       </a>
     </nav>
   </div>
@@ -177,36 +177,36 @@
       <div class="footer-brand">
         <a class="brand" href="index.html">
           <img class="brand-mark" src="assets/favicon.svg" alt="" width="30" height="30">
-          <span class="brand-text">陈亦航<small>AI 应用开发</small></span>
+          <span class="brand-text">Ningyuan Zhou<small>AI application development</small></span>
         </a>
-        <p>计算机专业大二。把想法做成能跑的小工具，然后想办法让它一直跑下去。</p>
+        <p>CS sophomore. I build small tools that work, then try to keep them working.</p>
       </div>
       <div class="footer-col">
-        <h2>页面</h2>
+        <h2>Pages</h2>
         <ul>
-          <li><a href="index.html">首页</a></li>
-          <li><a href="work.html">项目</a></li>
-          <li><a href="about.html">关于</a></li>
-          <li><a href="contact.html">联系</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="work.html">Work</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h2>在别处</h2>
+        <h2>Elsewhere</h2>
         <ul>
           <li><a href="https://github.com/swdlawa" rel="me">GitHub</a></li>
-          <li><a href="mailto:chen.yihang@example.com">邮箱</a></li>
-          <li><a href="work.html">全部项目</a></li>
+          <li><a href="mailto:ningyuan.zhou@example.com">Email</a></li>
+          <li><a href="work.html">All projects</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© <span data-year>2026</span> 陈亦航 · 手写 HTML / CSS / JS，托管在 GitHub Pages</p>
-      <p>本站所有插图均为原创 SVG，可自由查看源码。</p>
+      <p>© <span data-year>2026</span> Ningyuan Zhou · Hand-written HTML / CSS / JS, hosted on GitHub Pages</p>
+      <p>All illustrations are original SVG. Source is open.</p>
     </div>
   </div>
 </footer>
 
-<button class="to-top" type="button" data-to-top aria-label="回到顶部">
+<button class="to-top" type="button" data-to-top aria-label="Back to top">
   <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <path d="M12 19V5M5 12l7-7 7 7"/>
   </svg>

@@ -21,7 +21,7 @@
       themeToggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
       themeToggle.setAttribute(
         "aria-label",
-        theme === "dark" ? "切换到浅色主题" : "切换到深色主题"
+        theme === "dark" ? "Switch to light theme" : "Switch to dark theme"
       );
     }
     if (themeMeta) {
@@ -69,14 +69,14 @@
     if (!siteNav || !navToggle) return;
     siteNav.classList.remove("is-open");
     navToggle.setAttribute("aria-expanded", "false");
-    navToggle.setAttribute("aria-label", "打开菜单");
+    navToggle.setAttribute("aria-label", "Open menu");
   }
 
   if (navToggle && siteNav) {
     navToggle.addEventListener("click", function () {
       var open = siteNav.classList.toggle("is-open");
       navToggle.setAttribute("aria-expanded", open ? "true" : "false");
-      navToggle.setAttribute("aria-label", open ? "关闭菜单" : "打开菜单");
+      navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
     });
 
     siteNav.addEventListener("click", function (event) {
@@ -149,7 +149,7 @@
       });
 
       if (countEl) {
-        countEl.textContent = "显示 " + shown + " / " + cards.length + " 个项目";
+        countEl.textContent = "Showing " + shown + " / " + cards.length + " projects";
       }
       if (emptyEl) emptyEl.hidden = shown !== 0;
     }
@@ -182,7 +182,7 @@
         var original = button.textContent;
 
         function done(ok) {
-          button.textContent = ok ? "已复制" : "请手动复制";
+          button.textContent = ok ? "Copied" : "Copy manually";
           window.setTimeout(function () {
             button.textContent = original;
           }, 1800);
@@ -242,21 +242,21 @@
       var valid = true;
 
       if (!name.value.trim()) {
-        setError(name, "请告诉我怎么称呼你。");
+        setError(name, "Tell me what to call you.");
         valid = false;
       } else {
         setError(name, "");
       }
 
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(from.value.trim())) {
-        setError(from, "这个邮箱看起来不完整。");
+        setError(from, "That email doesn't look complete.");
         valid = false;
       } else {
         setError(from, "");
       }
 
       if (message.value.trim().length < 10) {
-        setError(message, "至少写 10 个字，我好知道你在想什么。");
+        setError(message, "At least 10 characters, so I know what you mean.");
         valid = false;
       } else {
         setError(message, "");
@@ -264,7 +264,7 @@
 
       if (!valid) {
         if (statusEl) {
-          statusEl.textContent = "还有几处需要修改。";
+          statusEl.textContent = "A few fields need fixing.";
           statusEl.className = "form-status is-error";
         }
         var firstBad = form.querySelector('[aria-invalid="true"]');
@@ -272,14 +272,14 @@
         return;
       }
 
-      var subject = encodeURIComponent("[作品集] " + name.value.trim());
+      var subject = encodeURIComponent("[Portfolio] " + name.value.trim());
       var body = encodeURIComponent(
         message.value.trim() + "\n\n— " + name.value.trim() + "\n" + from.value.trim()
       );
       window.location.href = "mailto:" + email + "?subject=" + subject + "&body=" + body;
 
       if (statusEl) {
-        statusEl.textContent = "正在打开你的邮件客户端…";
+        statusEl.textContent = "Opening your email client…";
         statusEl.className = "form-status is-ok";
       }
     });

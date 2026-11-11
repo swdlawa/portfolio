@@ -1,8 +1,8 @@
 {
-  "name": "陈亦航 · AI 应用开发作品集",
-  "short_name": "陈亦航",
-  "description": "本地 Agent 部署、QQ 机器人与全栈课程项目。",
-  "lang": "zh-CN",
+  "name": "Ningyuan Zhou · AI Application Development",
+  "short_name": "Ningyuan Zhou",
+  "description": "Portfolio: a local LLM agent deployment, a QQ chatbot and a full-stack course project.",
+  "lang": "en",
   "dir": "ltr",
   "start_url": "./index.html",
   "scope": "./",
