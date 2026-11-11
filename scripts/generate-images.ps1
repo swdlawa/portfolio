@@ -123,6 +123,50 @@ foreach ($size in @(64, 180, 192, 512)) {
   $g.Dispose(); $bmp.Dispose()
 }
 
+# --- 1b. favicon.ico (16 / 32 / 48, PNG-compressed entries) ---------------
+function Get-IconPng {
+  param([int]$size)
+  $pair = New-Canvas $size $size
+  $bmp = $pair[0]; $g = $pair[1]
+  $g.Clear([System.Drawing.Color]::Transparent)
+  Draw-Mark $g ($size / 2) ($size / 2) ($size * 0.92) $true
+  $ms = New-Object System.IO.MemoryStream
+  $bmp.Save($ms, [System.Drawing.Imaging.ImageFormat]::Png)
+  $bytes = $ms.ToArray()
+  $ms.Dispose(); $g.Dispose(); $bmp.Dispose()
+  return ,$bytes
+}
+
+$icoSizes = @(16, 32, 48)
+$icoPngs = @()
+foreach ($s in $icoSizes) { $icoPngs += ,(Get-IconPng $s) }
+
+$icoStream = New-Object System.IO.MemoryStream
+$icoWriter = New-Object System.IO.BinaryWriter($icoStream)
+$icoWriter.Write([UInt16]0)                  # reserved
+$icoWriter.Write([UInt16]1)                  # type: icon
+$icoWriter.Write([UInt16]$icoSizes.Count)    # image count
+
+$icoOffset = 6 + 16 * $icoSizes.Count
+for ($i = 0; $i -lt $icoSizes.Count; $i++) {
+  $s = $icoSizes[$i]
+  $data = $icoPngs[$i]
+  $dim = if ($s -ge 256) { 0 } else { $s }
+  $icoWriter.Write([Byte]$dim)               # width
+  $icoWriter.Write([Byte]$dim)               # height
+  $icoWriter.Write([Byte]0)                  # palette count
+  $icoWriter.Write([Byte]0)                  # reserved
+  $icoWriter.Write([UInt16]1)                # colour planes
+  $icoWriter.Write([UInt16]32)               # bits per pixel
+  $icoWriter.Write([UInt32]$data.Length)     # bytes in resource
+  $icoWriter.Write([UInt32]$icoOffset)       # offset
+  $icoOffset += $data.Length
+}
+foreach ($data in $icoPngs) { $icoWriter.Write($data) }
+$icoWriter.Flush()
+[System.IO.File]::WriteAllBytes((Join-Path (Split-Path $PSScriptRoot -Parent) "favicon.ico"), $icoStream.ToArray())
+$icoWriter.Dispose(); $icoStream.Dispose()
+
 # --- 2. Open Graph card ----------------------------------------------------
 $pair = New-Canvas 1200 630
 $bmp = $pair[0]; $g = $pair[1]

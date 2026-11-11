@@ -24,6 +24,7 @@ portfolio-site/
 │   └── styles.css          All styling: design tokens, responsive layout, dark mode
 ├── js/
 │   └── main.js             Theme, mobile nav, project filter, copy, form validation, reveal
+├── favicon.ico             Multi-size fallback (16 / 32 / 48) for legacy browsers
 ├── assets/
 │   ├── favicon.svg         Site mark (vector, preferred)
 │   ├── favicon.png         64×64 fallback
@@ -56,7 +57,7 @@ portfolio-site/
 | **Behaviour** — responds to the user | Dark-mode toggle, mobile menu, **project filter**, copy-email button, validated contact form that composes an email, scroll-reveal, back-to-top |
 | **Live** — a real address | GitHub Pages: `https://swdlawa.github.io/portfolio/` |
 | **History** — grows week by week | See §6. The repository is new, so the history starts now and cannot honestly contain earlier weeks |
-| **Identity** — OG image, favicon, app icon | `og-image.png` 1200×630, `favicon.svg` + `favicon.png`, `apple-touch-icon.png`, `icon-192/512.png`, plus `manifest.webmanifest` and full OG/Twitter meta tags on every page |
+| **Identity** — OG image, favicon, app icon | `og-image.png` 1200×630, `favicon.svg` + `favicon.png` + `favicon.ico`, `apple-touch-icon.png`, `icon-192/512.png`, plus `manifest.webmanifest` and full OG/Twitter meta tags on every page |
 
 Accessibility: skip link, visible focus rings, `aria-live` result regions, `aria-expanded` / `aria-pressed` states, keyboard-operable filters, and `prefers-reduced-motion` support.
 
@@ -87,7 +88,7 @@ node scripts/serve.mjs 8080
    powershell -ExecutionPolicy Bypass -File scripts/generate-images.ps1
    ```
 
-   This rebuilds `og-image.png`, `favicon.png`, `apple-touch-icon.png`, `icon-192.png` and `icon-512.png`.
+   This rebuilds `og-image.png`, `favicon.png`, `favicon.ico`, `apple-touch-icon.png`, `icon-192.png` and `icon-512.png`.
 
 ---
 
