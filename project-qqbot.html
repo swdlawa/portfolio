@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QQ 智能对话机器人 · 陈亦航</title>
+<meta name="description" content="复盘：用 NoneBot2 + NapCat 接 DeepSeek，做一个有人设、有记忆、能看图、会提醒，而且掉线能自己恢复的 QQ 机器人。">
+<link rel="canonical" href="https://swdlawa.github.io/portfolio/project-qqbot.html">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="陈亦航 · 作品集">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="QQ 智能对话机器人 · 陈亦航">
+<meta property="og:description" content="NoneBot2 + NapCat + DeepSeek：从 HTTP 适配器换到 WebSocket，再给它加上守护进程。">
+<meta property="og:url" content="https://swdlawa.github.io/portfolio/project-qqbot.html">
+<meta property="og:image" content="https://swdlawa.github.io/portfolio/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="陈亦航作品集：把模型接进真实的生活里。">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="QQ 智能对话机器人 · 陈亦航">
+<meta name="twitter:description" content="NoneBot2 + NapCat + DeepSeek：从 HTTP 适配器换到 WebSocket，再给它加上守护进程。">
+<meta name="twitter:image" content="https://swdlawa.github.io/portfolio/assets/og-image.png">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon.png" type="image/png" sizes="64x64">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#f7f4ed">
+<link rel="stylesheet" href="css/styles.css">
+<script>
+  (function () {
+    var root = document.documentElement;
+    root.classList.remove("no-js");
+    try {
+      var saved = localStorage.getItem("theme");
+      var theme = saved || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      root.setAttribute("data-theme", theme);
+    } catch (e) {
+      root.setAttribute("data-theme", "light");
+    }
+  })();
+</script>
+<script src="js/main.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">跳到主要内容</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html">
+      <img class="brand-mark" src="assets/favicon.svg" alt="" width="30" height="30">
+      <span class="brand-text">陈亦航<small>AI 应用开发</small></span>
+    </a>
+    <nav class="site-nav" id="site-nav" aria-label="主导航">
+      <ul>
+        <li><a href="index.html">首页</a></li>
+        <li><a href="work.html" aria-current="page">项目</a></li>
+        <li><a href="about.html">关于</a></li>
+        <li><a href="contact.html">联系</a></li>
+      </ul>
+    </nav>
+    <div class="header-tools">
+      <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="切换到深色主题">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.2 8.2 0 1 0 10.2 10.2Z"/>
+        </svg>
+      </button>
+      <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav" aria-label="打开菜单">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <div class="wrap">
+    <div class="page-head">
+      <nav aria-label="面包屑">
+        <ol class="breadcrumb">
+          <li><a href="index.html">首页</a></li>
+          <li><a href="work.html">项目</a></li>
+          <li aria-current="page">QQ 智能对话机器人</li>
+        </ol>
+      </nav>
+      <h1>一个会自己爬起来的机器人</h1>
+      <p>最初只是想让群里有个能接话的角色。做着做着发现，让模型说话不难，让它连续几周不掉线才难。</p>
+
+      <dl class="study-meta">
+        <div>
+          <dt>角色</dt>
+          <dd>独立开发</dd>
+        </div>
+        <div>
+          <dt>时间</dt>
+          <dd><time datetime="2026-05">2026.05</time></dd>
+        </div>
+        <div>
+          <dt>技术栈</dt>
+          <dd>NoneBot2 · NapCat · DeepSeek API</dd>
+        </div>
+        <div>
+          <dt>结果</dt>
+          <dd>稳定运行数月</dd>
+        </div>
+      </dl>
+    </div>
+
+    <article class="prose">
+      <figure>
+        <img src="assets/cover-qqbot.svg" alt="示意图：手机聊天界面里机器人在回复，旁边标注 OneBot 11、守护进程和记忆模块" width="800" height="500">
+        <figcaption>它每天面对的就是这种对话。看起来简单，背后是协议、记忆和进程管理。</figcaption>
+      </figure>
+
+      <h2>想做成什么样</h2>
+      <p>需求列出来只有四条：有固定人设、能记住上下文、能看懂图片、能定时提醒。技术上就是一条链路：QQ 消息进来，交给模型，再把回复发回去。</p>
+      <p>难点在于这条链路不能只跑一次。群里的消息是随时来的，机器会重启、网络会断、接口会超时。一个只在演示时能用的机器人，没有意义。</p>
+
+      <h2>技术选型</h2>
+      <ul>
+        <li><strong>NoneBot2</strong> 做消息分发和插件管理，Python 生态，改起来快；</li>
+        <li><strong>NapCat</strong> 负责和 QQ 通信，走 OneBot 11 协议；</li>
+        <li><strong>DeepSeek API</strong> 负责生成回复，人设写进 system prompt；</li>
+        <li><strong>WebSocket 长连接</strong> 替代 HTTP，用来接收事件。</li>
+      </ul>
+
+      <h2>那个让我卡了一晚上的问题</h2>
+      <p>按文档配好 HTTP 适配器，启动日志显示一切正常，但机器人对消息完全没有反应。日志里全是“成功”，端口却没有任何连接。</p>
+      <p>查了很久才确认：适配器报告的是配置加载成功，并不代表它真的在监听。换成 WebSocket 长连接之后，事件立刻就能收到。</p>
+
+      <p class="pull">“只报成功、不监听端口”——这类问题最耗时间，因为所有日志都在骗你。</p>
+
+      <p>这件事之后，我加了两层保险：写了一个守护进程，进程挂了自动拉起；再配开机自启，机器重启也不用管。判断服务是否健康，用一个真实的探活请求，而不是看日志最后一行。</p>
+
+      <h2>记忆是怎么做的</h2>
+      <p>没有上向量数据库，就是按会话保存最近若干轮对话，超出长度就截断。够用，也便宜。人设通过 system prompt 固定，避免它聊着聊着变成另一个人。</p>
+      <p>图片识别是把图片转成模型能接受的输入再提问。这部分准确率一般，所以我不会让它对图片内容做重要判断。</p>
+
+      <h2>边界</h2>
+      <ul>
+        <li>上下文一长就贵，所以只保留最近几轮，不做长期记忆；</li>
+        <li>模型偶尔会胡说，涉及事实的内容我会让它明确说“不确定”；</li>
+        <li>没有做多群隔离的复杂权限，只在熟人小群里用。</li>
+      </ul>
+
+      <h2>我学到什么</h2>
+      <p>以前我以为“部署”是最后一步，现在知道它只是开始。真正让一个服务可用的，是超时、重试、守护和日志这些不性感的部分。也是从这个项目开始，我习惯在任何“成功”日志后面加一句：真的成功了吗？</p>
+    </article>
+
+    <nav class="study-nav" aria-label="项目导航">
+      <a href="project-dsh.html">
+        <small>上一个</small>
+        ← 大模型智能体本地部署
+      </a>
+      <a class="next" href="project-web.html">
+        <small>下一个</small>
+        AI 辅助的网站开发 →
+      </a>
+    </nav>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <img class="brand-mark" src="assets/favicon.svg" alt="" width="30" height="30">
+          <span class="brand-text">陈亦航<small>AI 应用开发</small></span>
+        </a>
+        <p>计算机专业大二。把想法做成能跑的小工具，然后想办法让它一直跑下去。</p>
+      </div>
+      <div class="footer-col">
+        <h2>页面</h2>
+        <ul>
+          <li><a href="index.html">首页</a></li>
+          <li><a href="work.html">项目</a></li>
+          <li><a href="about.html">关于</a></li>
+          <li><a href="contact.html">联系</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>在别处</h2>
+        <ul>
+          <li><a href="https://github.com/swdlawa" rel="me">GitHub</a></li>
+          <li><a href="mailto:chen.yihang@example.com">邮箱</a></li>
+          <li><a href="work.html">全部项目</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span data-year>2026</span> 陈亦航 · 手写 HTML / CSS / JS，托管在 GitHub Pages</p>
+      <p>本站所有插图均为原创 SVG，可自由查看源码。</p>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" type="button" data-to-top aria-label="回到顶部">
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 19V5M5 12l7-7 7 7"/>
+  </svg>
+</button>
+</body>
+</html>
