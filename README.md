@@ -3,7 +3,7 @@
 A hand-written static portfolio: **plain HTML + CSS + JavaScript**. No framework, no build step, no backend.
 Open `index.html` directly, or serve the folder. Hosted on GitHub Pages.
 
-> **Before you share it:** replace `ningyuan.zhou@example.com` with a real address (3 places: footer, contact page, and `data-mailto` in `js/main.js`), and check that `github.com/swdlawa` is the account you want linked.
+> **Contact:** `x20250081@stu.hibiuh.edu.cn` is the address wired into the footer, the contact page and the contact form (`data-mailto`). Check that `github.com/swdlawa` is the account you want linked.
 
 ---
 
@@ -77,7 +77,7 @@ node scripts/serve.mjs 8080
 ## 4. Make it yours
 
 1. **Name** — search for `Ningyuan Zhou`, replace it. The romanisation also appears in `<title>` tags and the OG image.
-2. **Email** — search for `example.com` (3 places).
+2. **Email** — search for `x20250081@stu.hibiuh.edu.cn`; it appears in the footer of every page, on the contact page (link, copy button and form) and in `contact.html`'s `data-mailto`.
 3. **Project copy** — the case studies are `project-*.html`; the cards live in `work.html`. Replace them with things you actually did, and delete any sentence you can't defend.
 4. **Timeline** — the `<ol class="timeline">` in `about.html`; use real dates.
 5. **Palette** — the `:root` variables at the top of `css/styles.css`; one change propagates everywhere.
