@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="t">
+  <title id="t">示意图：编码 Agent 经协议网关连接 DeepSeek 模型</title>
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#242c34" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b0472a" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#b0472a" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="500" fill="#161c22"/>
+  <rect width="800" height="500" fill="url(#grid)"/>
+  <circle cx="640" cy="120" r="220" fill="url(#glow)"/>
+
+  <g font-family="Consolas, 'Cascadia Code', monospace" font-size="13" letter-spacing="2">
+    <text x="56" y="64" fill="#7d8a94">LOCAL AGENT / DSH</text>
+    <text x="656" y="64" fill="#7d8a94">MODEL API</text>
+  </g>
+
+  <!-- agent -->
+  <g>
+    <rect x="56" y="180" width="150" height="140" rx="12" fill="#1d262e" stroke="#3b464f"/>
+    <circle cx="86" cy="212" r="7" fill="#b0472a"/>
+    <text x="104" y="217" fill="#ece7dc" font-family="Consolas, monospace" font-size="14">agent</text>
+    <g fill="#6f7d88" font-family="Consolas, monospace" font-size="12">
+      <text x="80" y="252">task.run()</text>
+      <text x="80" y="276">tool.call()</text>
+      <text x="80" y="300">retry(3)</text>
+    </g>
+  </g>
+
+  <!-- gateway -->
+  <g>
+    <rect x="300" y="200" width="200" height="100" rx="12" fill="#1d262e" stroke="#b0472a"/>
+    <text x="322" y="238" fill="#f0a887" font-family="Consolas, monospace" font-size="13" letter-spacing="1">GATEWAY</text>
+    <text x="322" y="266" fill="#8d9aa4" font-family="Consolas, monospace" font-size="12">/v1 → /v1</text>
+    <rect x="322" y="277" width="54" height="5" rx="2.5" fill="#b0472a"/>
+    <rect x="384" y="277" width="26" height="5" rx="2.5" fill="#3b464f"/>
+    <rect x="418" y="277" width="38" height="5" rx="2.5" fill="#3b464f"/>
+  </g>
+
+  <!-- model -->
+  <g>
+    <rect x="594" y="180" width="150" height="140" rx="12" fill="#1d262e" stroke="#3b464f"/>
+    <g fill="#ece7dc" font-family="Consolas, monospace" font-size="12">
+      <text x="618" y="216">deepseek</text>
+      <text x="618" y="238">chat</text>
+    </g>
+    <g fill="#6f7d88">
+      <rect x="618" y="254" width="102" height="7" rx="3.5"/>
+      <rect x="618" y="270" width="76" height="7" rx="3.5"/>
+      <rect x="618" y="286" width="90" height="7" rx="3.5"/>
+    </g>
+  </g>
+
+  <!-- links -->
+  <g stroke="#4b5863" stroke-width="1.5" fill="none">
+    <path d="M206 250h94"/>
+    <path d="M500 250h94"/>
+  </g>
+  <g fill="#b0472a">
+    <circle cx="206" cy="250" r="4"/>
+    <circle cx="594" cy="250" r="4"/>
+  </g>
+  <g stroke="#4b5863" stroke-width="1.5" fill="none" stroke-dasharray="4 6">
+    <path d="M300 380h200" opacity=".5"/>
+  </g>
+  <text x="300" y="412" fill="#5d6a74" font-family="Consolas, monospace" font-size="12" letter-spacing="1">TASK → TOOL → INFERENCE</text>
+
+  <g fill="#5d6a74" font-family="Consolas, monospace" font-size="11" letter-spacing="1">
+    <text x="56" y="456">PORT 3080 · PID 11842</text>
+    <text x="640" y="456">200 OK</text>
+  </g>
+</svg>

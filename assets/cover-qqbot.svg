@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="t">
+  <title id="t">示意图：QQ 机器人的对话窗口与守护进程</title>
+  <defs>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="#d9d2c4"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="500" fill="#f1ece1"/>
+  <rect width="800" height="500" fill="url(#dots)"/>
+
+  <!-- phone / chat panel -->
+  <g>
+    <rect x="120" y="54" width="360" height="392" rx="22" fill="#fffdf8" stroke="#cec5b2"/>
+    <rect x="120" y="54" width="360" height="56" rx="22" fill="#e9e2d5"/>
+    <rect x="120" y="88" width="360" height="22" fill="#e9e2d5"/>
+    <circle cx="154" cy="82" r="13" fill="#161c22"/>
+    <text x="147" y="87" fill="#f7f4ed" font-family="Georgia, serif" font-size="14">Q</text>
+    <text x="180" y="80" fill="#161c22" font-family="'Microsoft YaHei', sans-serif" font-size="14">小助手</text>
+    <text x="180" y="97" fill="#6b7c8c" font-family="Consolas, monospace" font-size="10">NoneBot2 · 在线</text>
+    <circle cx="452" cy="82" r="4" fill="#2f6b4f"/>
+
+    <!-- incoming -->
+    <g>
+      <rect x="146" y="138" width="212" height="46" rx="14" fill="#f1ece1"/>
+      <text x="164" y="166" fill="#33404b" font-family="'Microsoft YaHei', sans-serif" font-size="13">今天下午有什么安排？</text>
+    </g>
+
+    <!-- outgoing -->
+    <g>
+      <rect x="238" y="200" width="218" height="66" rx="14" fill="#b0472a"/>
+      <text x="256" y="226" fill="#fff8f3" font-family="'Microsoft YaHei', sans-serif" font-size="13">下午 3 点组会，别忘了</text>
+      <text x="256" y="246" fill="#f4e3d9" font-family="'Microsoft YaHei', sans-serif" font-size="13">带上上周的 demo。</text>
+    </g>
+
+    <!-- typing -->
+    <g>
+      <rect x="146" y="286" width="74" height="38" rx="14" fill="#f1ece1"/>
+      <circle cx="170" cy="305" r="4" fill="#9aa4ac"/>
+      <circle cx="184" cy="305" r="4" fill="#9aa4ac"/>
+      <circle cx="198" cy="305" r="4" fill="#9aa4ac"/>
+    </g>
+
+    <!-- input bar -->
+    <rect x="146" y="386" width="238" height="38" rx="19" fill="#f7f4ed" stroke="#e2dbcd"/>
+    <text x="164" y="410" fill="#9aa4ac" font-family="'Microsoft YaHei', sans-serif" font-size="12">说点什么…</text>
+    <circle cx="412" cy="405" r="19" fill="#161c22"/>
+    <path d="M405 411l14-6-14-6 3 6-3 6Z" fill="#f7f4ed"/>
+  </g>
+
+  <!-- side notes -->
+  <g font-family="Consolas, monospace">
+    <text x="532" y="132" fill="#b0472a" font-size="11" letter-spacing="2">ONEBOT 11</text>
+    <text x="532" y="154" fill="#5d6a74" font-size="11">websocket · 心跳</text>
+
+    <path d="M532 180h56" stroke="#cec5b2" stroke-width="1"/>
+
+    <text x="532" y="212" fill="#b0472a" font-size="11" letter-spacing="2">DAEMON</text>
+    <text x="532" y="234" fill="#5d6a74" font-size="11">掉线重启</text>
+    <text x="532" y="252" fill="#5d6a74" font-size="11">开机自启</text>
+
+    <path d="M532 278h56" stroke="#cec5b2" stroke-width="1"/>
+
+    <text x="532" y="310" fill="#b0472a" font-size="11" letter-spacing="2">MEMORY</text>
+    <text x="532" y="332" fill="#5d6a74" font-size="11">多轮上下文</text>
+    <text x="532" y="350" fill="#5d6a74" font-size="11">自定义人设</text>
+    <text x="532" y="368" fill="#5d6a74" font-size="11">定时提醒</text>
+  </g>
+
+  <g fill="#8a99a8" font-family="Consolas, monospace" font-size="10" letter-spacing="1">
+    <text x="532" y="430">UPTIME 99.2%</text>
+  </g>
+</svg>

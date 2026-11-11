@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="t">
+  <title id="t">示意图：浏览器、API 与数据库三层结构</title>
+  <rect width="800" height="500" fill="#e7eef3"/>
+
+  <!-- browser -->
+  <g>
+    <rect x="72" y="76" width="420" height="300" rx="14" fill="#fffdf8" stroke="#c3d0da"/>
+    <rect x="72" y="76" width="420" height="44" rx="14" fill="#dbe6ee"/>
+    <rect x="72" y="104" width="420" height="16" fill="#dbe6ee"/>
+    <circle cx="96" cy="98" r="5" fill="#b0472a"/>
+    <circle cx="114" cy="98" r="5" fill="#c9d5de"/>
+    <circle cx="132" cy="98" r="5" fill="#c9d5de"/>
+    <rect x="156" y="90" width="180" height="16" rx="8" fill="#fffdf8"/>
+
+    <!-- wireframe content -->
+    <rect x="96" y="146" width="150" height="18" rx="4" fill="#1b2b3a"/>
+    <rect x="96" y="176" width="240" height="8" rx="4" fill="#c3d0da"/>
+    <rect x="96" y="194" width="200" height="8" rx="4" fill="#c3d0da"/>
+    <rect x="96" y="224" width="112" height="92" rx="8" fill="#e7eef3" stroke="#c3d0da"/>
+    <rect x="222" y="224" width="112" height="92" rx="8" fill="#e7eef3" stroke="#c3d0da"/>
+    <rect x="348" y="224" width="112" height="92" rx="8" fill="#e7eef3" stroke="#c3d0da"/>
+    <rect x="110" y="240" width="60" height="7" rx="3.5" fill="#9fb2c0"/>
+    <rect x="236" y="240" width="60" height="7" rx="3.5" fill="#9fb2c0"/>
+    <rect x="362" y="240" width="60" height="7" rx="3.5" fill="#9fb2c0"/>
+    <rect x="96" y="336" width="94" height="18" rx="9" fill="#b0472a"/>
+  </g>
+
+  <!-- arrows -->
+  <g stroke="#8fa3b2" stroke-width="1.5" fill="none">
+    <path d="M496 196h70"/>
+    <path d="M566 196l-8-4m8 4l-8 4"/>
+    <path d="M566 196h42"/>
+  </g>
+  <g font-family="Consolas, monospace" font-size="10" fill="#5d6a74">
+    <text x="500" y="184">fetch / JSON</text>
+  </g>
+
+  <!-- stack cards -->
+  <g>
+    <rect x="612" y="112" width="128" height="66" rx="10" fill="#1b2b3a"/>
+    <text x="630" y="140" fill="#f7f4ed" font-family="Consolas, monospace" font-size="13">Vue 3</text>
+    <text x="630" y="160" fill="#9fb2c0" font-family="Consolas, monospace" font-size="10">pages · state</text>
+
+    <rect x="612" y="196" width="128" height="80" rx="10" fill="#fffdf8" stroke="#b0472a"/>
+    <text x="630" y="224" fill="#7d2f1a" font-family="Consolas, monospace" font-size="13">FastAPI</text>
+    <text x="630" y="244" fill="#5d6a74" font-family="Consolas, monospace" font-size="10">REST · JWT</text>
+    <text x="630" y="260" fill="#5d6a74" font-family="Consolas, monospace" font-size="10">Docker</text>
+
+    <rect x="612" y="294" width="128" height="66" rx="10" fill="#1b2b3a"/>
+    <text x="630" y="322" fill="#f7f4ed" font-family="Consolas, monospace" font-size="13">MySQL</text>
+    <text x="630" y="342" fill="#9fb2c0" font-family="Consolas, monospace" font-size="10">tables · auth</text>
+  </g>
+
+  <g fill="#6b7c8c" font-family="Consolas, monospace" font-size="10" letter-spacing="1">
+    <text x="72" y="420">COURSE PROJECT · 2026.09 — 2026.11</text>
+  </g>
+</svg>
