@@ -558,7 +558,7 @@ main {
   border-color: var(--line-strong);
 }
 
-.project-card a {
+.project-card :is(a, .card-inner) {
   text-decoration: none;
   color: inherit;
   display: flex;
@@ -584,7 +584,7 @@ main {
   transition: transform 0.4s ease;
 }
 
-.project-card a:hover .card-media img {
+.project-card :is(a, .card-inner):hover .card-media img {
   transform: scale(1.025);
 }
 

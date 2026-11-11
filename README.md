@@ -3,7 +3,7 @@
 A hand-written static portfolio: **plain HTML + CSS + JavaScript**. No framework, no build step, no backend.
 Open `index.html` directly, or serve the folder. Hosted on GitHub Pages.
 
-> **Contact:** `x20250081@stu.biuh.edu.cn` is the address wired into the footer, the contact page and the contact form (`data-mailto`). Check that `github.com/swdlawa` is the account you want linked.
+> **Contact:** `x20250081@stu.biuh.edu.cn` is the address wired into the footer, the contact page and the contact form (`data-mailto`). The site deliberately has no external profile links.
 
 ---
 
