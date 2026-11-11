@@ -1,108 +1,108 @@
-# 陈亦航 · 个人作品集
+# Ningyuan Zhou — Portfolio
 
-一个从零手写的静态作品集站点：**纯 HTML + CSS + JavaScript**，没有框架、没有构建步骤、没有后端。
-直接双击 `index.html` 就能看，托管在 GitHub Pages 上。
+A hand-written static portfolio: **plain HTML + CSS + JavaScript**. No framework, no build step, no backend.
+Open `index.html` directly, or serve the folder. Hosted on GitHub Pages.
 
-> **上线前请先做两件事**：把 `chen.yihang@example.com` 换成你的真实邮箱，把 `github.com/swdlawa` 换成你的账号（如果你的账号不是这个）。搜索 `example.com` 即可全部找到，共 3 处：页脚、联系页、`js/main.js` 里的 `data-mailto`。
+> **Before you share it:** replace `ningyuan.zhou@example.com` with a real address (3 places: footer, contact page, and `data-mailto` in `js/main.js`), and check that `github.com/swdlawa` is the account you want linked.
 
 ---
 
-## 1. 页面结构
+## 1. Pages
 
 ```
 portfolio-site/
-├── index.html              首页：Hero、精选项目、工作原则、技能、CTA
-├── work.html               项目列表：可按类型筛选（全部 / LLM / 全栈 / 前端）
-├── project-dsh.html        项目复盘：大模型智能体本地部署
-├── project-qqbot.html      项目复盘：QQ 智能对话机器人
-├── project-web.html        项目复盘：AI 辅助的网站开发
-├── about.html              关于：自述、时间线、技能自评表、接下来
-├── contact.html            联系：邮箱、GitHub、留言表单、FAQ
-├── 404.html                找不到页面时的兜底
-├── manifest.webmanifest    Web App Manifest（应用图标、主题色）
+├── index.html              Home: hero, selected work, principles, skills, CTA
+├── work.html               All projects, filterable (All / LLM apps / Full-stack / Front-end)
+├── project-dsh.html        Case study: local LLM agent deployment
+├── project-qqbot.html      Case study: QQ chatbot
+├── project-web.html        Case study: AI-assisted web development
+├── about.html              About: bio, timeline, skills table, next three months
+├── contact.html            Contact: email, GitHub, message form, FAQ
+├── 404.html                Not-found page
+├── manifest.webmanifest    Web app manifest (icons, theme colour)
 ├── css/
-│   └── styles.css          全部样式：设计变量 + 响应式 + 深色模式
+│   └── styles.css          All styling: design tokens, responsive layout, dark mode
 ├── js/
-│   └── main.js             主题切换、移动菜单、项目筛选、复制、表单校验、滚动动画
+│   └── main.js             Theme, mobile nav, project filter, copy, form validation, reveal
 ├── assets/
-│   ├── favicon.svg         站点图标（矢量，优先使用）
-│   ├── favicon.png         64×64 兜底
-│   ├── apple-touch-icon.png 180×180 iOS 主屏图标
-│   ├── icon-192.png        192×192 manifest 图标
-│   ├── icon-512.png        512×512 manifest 图标（同时声明 maskable）
-│   ├── og-image.png        1200×630 社交分享图
-│   ├── cover-dsh.svg       原创插图：Agent → 网关 → 模型
-│   ├── cover-qqbot.svg     原创插图：聊天窗口与守护进程
-│   ├── cover-web.svg       原创插图：浏览器 / API / 数据库
-│   └── desk.svg            原创插图：书桌俯视图
+│   ├── favicon.svg         Site mark (vector, preferred)
+│   ├── favicon.png         64×64 fallback
+│   ├── apple-touch-icon.png 180×180 iOS home screen
+│   ├── icon-192.png        192×192 manifest icon
+│   ├── icon-512.png        512×512 manifest icon (also declared maskable)
+│   ├── og-image.png        1200×630 social card
+│   ├── cover-dsh.svg       Original illustration: agent → gateway → model
+│   ├── cover-qqbot.svg     Original illustration: chat window, daemon, memory
+│   ├── cover-web.svg       Original illustration: browser / API / database
+│   └── desk.svg            Original illustration: top-down desk
 ├── scripts/
-│   ├── generate-images.ps1 重新生成 OG 图、favicon、应用图标
-│   ├── serve.mjs           本地预览服务器（零依赖）
-│   └── shoot.mjs           本地截图脚本（开发用，不参与站点）
-├── .nojekyll               告诉 GitHub Pages 不要跑 Jekyll
+│   ├── generate-images.ps1 Rebuilds the OG card, favicon and app icons
+│   ├── serve.mjs           Zero-dependency local preview server
+│   └── shoot.mjs           Dev-only screenshot helper (not part of the site)
+├── .nojekyll               Stops GitHub Pages running Jekyll
 └── README.md
 ```
 
 ---
 
-## 2. 七条要求对照
+## 2. How the brief is met
 
-| 要求 | 这个站怎么做的 |
+| Requirement | How this site does it |
 | --- | --- |
-| **Pages** — 至少四页，导航可用 | 8 个页面。页头主导航 + 页脚导航；当前页有 `aria-current="page"`；项目页有面包屑和上一篇/下一篇 |
-| **Content** — 自己的文字与图片 | 文案基于本人的三个真实项目重写；所有插图是用 SVG 手绘的原创图，不涉及第三方版权 |
-| **Structure** — 语义化 HTML | `header / nav / main / article / section / aside / figure / figcaption / time / dl / table / form / footer`；表格有 `caption` 与 `th scope`；标题层级不跳级 |
-| **Layout** — 手机上可用 | `clamp()` 流式字号、Grid 自适应卡片、780px 以下折叠菜单、表格横向滚动；在 390px 宽度逐页检查过 |
-| **Behaviour** — 响应用户操作 | 深色模式切换、移动菜单、**项目筛选**、一键复制邮箱、表单校验与邮件草稿、滚动出现动画、回到顶部 |
-| **Live** — 真实地址 | GitHub Pages：`https://swdlawa.github.io/portfolio/` |
-| **History** — 按周增长的提交记录 | 见 §6。**注意：仓库是新建的，历史只能从建立那天开始积累**，无法凭空出现前几周的记录 |
-| **Identity** — OG 图、favicon、应用图标 | `og-image.png` 1200×630、`favicon.svg` + `favicon.png`、`apple-touch-icon.png`、`icon-192/512.png` + `manifest.webmanifest`，每页都有完整的 OG/Twitter meta |
+| **Pages** — at least four, with working navigation | Eight pages. Shared header nav and footer nav, `aria-current="page"` on the active item, breadcrumbs and prev/next on case studies |
+| **Content** — your own words and images, or properly sourced | Copy is written from three real projects; every illustration is an original SVG, so there is no third-party licence to clear |
+| **Structure** — semantic HTML | `header / nav / main / article / section / aside / figure / figcaption / time / dl / table / form / footer`; table has `caption` and `th scope`; heading levels never skip |
+| **Layout** — responsive on a phone | `clamp()` fluid type, auto-fitting Grid cards, nav collapses below 780px, tables scroll horizontally. Checked at 390px and 1440px |
+| **Behaviour** — responds to the user | Dark-mode toggle, mobile menu, **project filter**, copy-email button, validated contact form that composes an email, scroll-reveal, back-to-top |
+| **Live** — a real address | GitHub Pages: `https://swdlawa.github.io/portfolio/` |
+| **History** — grows week by week | See §6. The repository is new, so the history starts now and cannot honestly contain earlier weeks |
+| **Identity** — OG image, favicon, app icon | `og-image.png` 1200×630, `favicon.svg` + `favicon.png`, `apple-touch-icon.png`, `icon-192/512.png`, plus `manifest.webmanifest` and full OG/Twitter meta tags on every page |
 
-无障碍：跳转链接、可见焦点框、`aria-live` 结果区、`aria-expanded`/`aria-pressed` 状态、键盘可操作的筛选按钮、`prefers-reduced-motion` 支持。
+Accessibility: skip link, visible focus rings, `aria-live` result regions, `aria-expanded` / `aria-pressed` states, keyboard-operable filters, and `prefers-reduced-motion` support.
 
 ---
 
-## 3. 本地预览
+## 3. Run it locally
 
 ```bash
-# 方式一：直接打开 index.html
+# Option 1: just open index.html
 
-# 方式二：起一个本地服务器（推荐，路径和线上一致）
+# Option 2: serve it (recommended — paths match production)
 node scripts/serve.mjs 8080
-# 然后访问 http://localhost:8080
+# then visit http://localhost:8080
 ```
 
 ---
 
-## 4. 改成一个“你的”站点
+## 4. Make it yours
 
-1. **姓名 / 站点名**：全局搜索 `陈亦航`，替换。`Yihang Chen` 出现在 OG 图和 `<title>` 里。
-2. **邮箱**：搜索 `example.com`，共 3 处。
-3. **项目内容**：`project-*.html` 是复盘正文；`work.html` 里是卡片列表。改成你自己真实做过的事，别保留你不理解的描述。
-4. **时间线**：`about.html` 的 `<ol class="timeline">`，日期请按真实情况改。
-5. **配色**：`css/styles.css` 顶部的 `:root` 变量，一处改全站生效。
-6. **身份图**：改 `scripts/generate-images.ps1` 顶部的参数，运行：
+1. **Name** — search for `Ningyuan Zhou`, replace it. The romanisation also appears in `<title>` tags and the OG image.
+2. **Email** — search for `example.com` (3 places).
+3. **Project copy** — the case studies are `project-*.html`; the cards live in `work.html`. Replace them with things you actually did, and delete any sentence you can't defend.
+4. **Timeline** — the `<ol class="timeline">` in `about.html`; use real dates.
+5. **Palette** — the `:root` variables at the top of `css/styles.css`; one change propagates everywhere.
+6. **Identity images** — edit the parameters at the top of `scripts/generate-images.ps1`, then run:
 
    ```powershell
    powershell -ExecutionPolicy Bypass -File scripts/generate-images.ps1
    ```
 
-   会重新生成 `og-image.png`、`favicon.png`、`apple-touch-icon.png`、`icon-192.png`、`icon-512.png`。
+   This rebuilds `og-image.png`, `favicon.png`, `apple-touch-icon.png`, `icon-192.png` and `icon-512.png`.
 
 ---
 
-## 5. 图片版权
+## 5. Image licensing
 
-- `assets/*.svg` 与 `assets/*.png` 全部为本站原创（手写 SVG / 脚本生成），可以自由修改。
-- 如果你之后加入真实照片，请用自己拍的，或使用可商用授权的图库（Unsplash、Pexels、Openverse），并在 `<figcaption>` 里写明作者与来源。
+- Every file in `assets/` is original work for this site (hand-written SVG, or generated by the script above). Modify freely.
+- If you add photographs, use your own, or a properly licensed source (Unsplash, Pexels, Openverse), and credit the author in the `<figcaption>`.
 
 ---
 
-## 6. 关于 Git 历史（重要）
+## 6. A note on Git history
 
-评审要求“能看到站点一周一周长起来”。诚实的做法是**从现在开始按周提交**，而不是一次性提交、再把提交日期改到过去——那是在伪造记录。
+The brief asks for history that shows the site growing week by week. The honest way to get that is to commit weekly from now on — not to make one huge commit and backdate it, which is forging the record.
 
-当前仓库的提交按功能拆分，每一条都是真实推进的一步（不是一次性的 `initial commit`）：
+The repository currently contains eight commits, split by feature, all pushed the day the site was built:
 
 1. `docs: project plan, structure and ignore rules`
 2. `feat: original SVG illustrations and identity images`
@@ -111,8 +111,9 @@ node scripts/serve.mjs 8080
 5. `feat: home page with hero, selected work and skills`
 6. `feat: work index and three project case studies`
 7. `feat: about, contact, 404 and web app manifest`
+8. `docs: clarify commit sequence and live URL`
 
-如果课程还剩下几周，建议每周做一件小事再提交一次（补一个项目、加一篇笔记、改一次文案），让 `git log` 自然形成时间线：
+If the course has weeks left, make one small real change per week (a new case study, a note, a copy edit) and commit it:
 
 ```bash
 git log --oneline --reverse --date=short --pretty=format:"%ad  %s"
@@ -120,28 +121,28 @@ git log --oneline --reverse --date=short --pretty=format:"%ad  %s"
 
 ---
 
-## 7. 部署到 GitHub Pages
+## 7. Deploying to GitHub Pages
 
 ```bash
 git init
 git add .
-git commit -m "feat: 个人作品集初始版本"
+git commit -m "feat: initial portfolio"
 git branch -M main
-git remote add origin https://github.com/<你的用户名>/portfolio.git
+git remote add origin https://github.com/<your-username>/portfolio.git
 git push -u origin main
 ```
 
-然后在仓库里 **Settings → Pages → Source: Deploy from a branch → `main` / `(root)` → Save**。
-一两分钟后访问 `https://<你的用户名>.github.io/portfolio/`。
+Then in the repository: **Settings → Pages → Source: Deploy from a branch → `main` / `(root)` → Save**.
+After a minute or two the site is at `https://<your-username>.github.io/portfolio/`.
 
-> `og:image` 必须是绝对地址，所以每页 `<head>` 里的 `og:url` / `og:image` 已经写成 `https://swdlawa.github.io/portfolio/...`。
-> 如果你换了用户名或仓库名，记得全局替换这一串。
+> `og:image` must be absolute, so every `<head>` already points at `https://swdlawa.github.io/portfolio/...`.
+> If the username or repository changes, replace that prefix everywhere.
 
-`.nojekyll` 已经加好，避免下划线开头的文件被 Jekyll 忽略。
+`.nojekyll` is included so files with leading underscores are not ignored.
 
 ---
 
-## 8. 浏览器支持
+## 8. Browser support
 
-使用的是 2023 年以后浏览器都支持的 CSS（`clamp()`、`color-mix()`、Grid、逻辑属性）。
-`color-mix()` 在极旧的浏览器里会失效，但只是背景透明度的细微差别，不影响内容与布局。
+Uses CSS that current browsers have supported since 2023 (`clamp()`, `color-mix()`, Grid, logical properties).
+Where `color-mix()` is unsupported, only a few translucent backgrounds differ — content and layout are unaffected.
