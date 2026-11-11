@@ -102,16 +102,15 @@ node scripts/serve.mjs 8080
 
 评审要求“能看到站点一周一周长起来”。诚实的做法是**从现在开始按周提交**，而不是一次性提交、再把提交日期改到过去——那是在伪造记录。
 
-当前仓库的提交按功能拆分，每一步都能单独打开、都能工作：
+当前仓库的提交按功能拆分，每一条都是真实推进的一步（不是一次性的 `initial commit`）：
 
-1. `docs: 项目说明和结构规划`
-2. `feat: 首页与共享页头页脚`
-3. `feat: 响应式样式与深色模式`
-4. `feat: 项目列表与筛选交互`
-5. `feat: 三个项目复盘页与关于页`
-6. `feat: 联系页与表单校验`
-7. `feat: OG 图、favicon 与应用图标`
-8. `docs: 上线地址与使用说明`
+1. `docs: project plan, structure and ignore rules`
+2. `feat: original SVG illustrations and identity images`
+3. `feat: design tokens, responsive layout and dark theme`
+4. `feat: theme toggle, mobile nav, filters and form validation`
+5. `feat: home page with hero, selected work and skills`
+6. `feat: work index and three project case studies`
+7. `feat: about, contact, 404 and web app manifest`
 
 如果课程还剩下几周，建议每周做一件小事再提交一次（补一个项目、加一篇笔记、改一次文案），让 `git log` 自然形成时间线：
 
